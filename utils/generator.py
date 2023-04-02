@@ -25,22 +25,23 @@ def generate_regular_matrices(dim:int, amount:int) -> List[List[float]]:
     return matrices
 
 # generate initial data
-# TODO change test data completely. currently it sucks
 if __name__ == "__main__":
     creation_data = [
-        [10, 100],
-        # change of dimentions
-        [50, 100],
-        [150, 100],
-        [300, 100],
-        [500, 100],
-        [1000, 100],
-        # change of amount
-        [10, 500],
         [10, 1000],
-        [10, 2000],
-        [10, 5000],
-        [10, 10000],
+        [20, 1000],
+        [30, 1000],
+        [40, 1000],
+        [50, 1000],
+        [60, 1000],
+        [70, 1000],
+        [80, 1000],
+        [90, 1000],
+        [100, 1000],
+        [110, 1000],
+        [120, 1000],
+        [130, 1000],
+        [140, 1000],
+        [150, 1000],
     ]
     
     for params in creation_data:

@@ -1,14 +1,14 @@
-import consecutive.gauss
-import parallel
+import consecutive.executor
+# import parallel.executor
 
 MODE = "c"
 # MODE = "p"
 
 if MODE == "c":
-    consecutive.gauss.do_the_thing()
-    print("Consecutive operations done!")
+    consecutive.executor.do_the_thing(True)
+    print("C | Operations are done!")
 elif MODE == "p":
-    # parallel
-    print("Parrallel operations done!")
+    # parallel.executor.do_the_thing()
+    print("P | Operations are done!")
 else:
-    print("Are you retarted?")
+    print("? | Are you retarted?")
