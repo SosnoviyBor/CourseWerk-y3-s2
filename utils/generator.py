@@ -1,5 +1,4 @@
 from typing import List
-import random
 
 import pickle
 import numpy as np
@@ -27,21 +26,7 @@ def generate_regular_matrices(dim:int, amount:int) -> List[List[float]]:
 # generate initial data
 if __name__ == "__main__":
     creation_data = [
-        [10, 1000],
-        [20, 1000],
-        [30, 1000],
-        [40, 1000],
-        [50, 1000],
-        [60, 1000],
-        [70, 1000],
-        [80, 1000],
-        [90, 1000],
-        [100, 1000],
-        [110, 1000],
-        [120, 1000],
-        [130, 1000],
-        [140, 1000],
-        [150, 1000],
+        [1000, 30],
     ]
     
     for params in creation_data:

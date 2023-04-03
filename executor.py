@@ -5,9 +5,9 @@ import pickle
 from utils.generator import generate_regular_matrices
 from utils.consts import *
 from utils.results import *
-from .matrix import Matrix
+from matrices import *
 
-def do_the_thing(write_to_file:bool) -> None:
+def do_the_thing(sync:bool, write_to_file:bool) -> None:
     if not DEBUG_MODE:
         results = []
         # iterate over files in directory
@@ -17,23 +17,34 @@ def do_the_thing(write_to_file:bool) -> None:
                 # matrices list is loaded!
                 all_matrices = pickle.load(file)
                 
-                time_start = time.time()    # in seconds
+                time_start = time.perf_counter()    # in seconds
                 for matrix in all_matrices:
-                    Matrix(matrix).inverse()
-                time_elapsed = time.time() - time_start
+                    if sync: synchronous.Matrix(matrix).inverse()
+                    else: multiprocessed.Matrix(matrix).inverse()
+                time_elapsed = time.perf_counter() - time_start
                 
                 d = len(all_matrices[0])    # matrices dimentions
                 c = len(all_matrices)       # matrices count
-                results.append(Result(d,c,time_elapsed))    # save the results
-                print(f"C | Successfeully inversed d-{d} c-{c} in {time_elapsed = }")
+                mode = "S" if sync else "M"
+                results.append(Result(d,c,time_elapsed))
+                print(f"{mode} | Successfeully inversed d-{d} c-{c} in {round(time_elapsed, 2)} second(s)")
         # write results to excel
         results.sort()
         if write_to_file:
-            write_results(results, "consecutive")
+            mode = "synchronous" if sync else "multiprocessed"
+            write_results(results, mode)
     else:
-        inp = [3, 1]
+        inp = [
+            [1,0,0,0],
+            [0,2,0,0],
+            [0,0,2,0],
+            [0,0,0,2],
+        ]
         # generate single simple matrix for debugging purposes
-        better_matrix = Matrix(generate_regular_matrices(*inp)[0])
+        if sync:
+            better_matrix = synchronous.Matrix(inp)
+        else:
+            better_matrix = multiprocessed.Matrix(inp)
         print("C | Initial matrix")
         better_matrix.print()
         
