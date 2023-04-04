@@ -4,11 +4,11 @@ import pickle
 
 from utils.generator import generate_regular_matrices
 from utils.consts import *
-from utils.results import *
+from utils.result_manager import *
 from matrices import *
 
-def do_the_thing(sync:bool, write_to_file:bool) -> None:
-    if not DEBUG_MODE:
+def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
+    if not debug_mode:
         results = []
         # iterate over files in directory
         for filename in os.listdir(MATRICES_DIR):
@@ -19,8 +19,8 @@ def do_the_thing(sync:bool, write_to_file:bool) -> None:
                 
                 time_start = time.perf_counter()    # in seconds
                 for matrix in all_matrices:
-                    if sync: synchronous.Matrix(matrix).inverse()
-                    else: multiprocessed.Matrix(matrix).inverse()
+                    if sync: synchronous.Matrix(matrix).inverse(floats=True)
+                    else: multiprocessed.Matrix(matrix).inverse(floats=True)
                 time_elapsed = time.perf_counter() - time_start
                 
                 d = len(all_matrices[0])    # matrices dimentions
@@ -31,23 +31,28 @@ def do_the_thing(sync:bool, write_to_file:bool) -> None:
         # write results to excel
         results.sort()
         if write_to_file:
-            mode = "synchronous" if sync else "multiprocessed"
-            write_results(results, mode)
+            write_results(results, sync)
     else:
         inp = [
-            [1,0,0,0],
-            [0,2,0,0],
-            [0,0,2,0],
-            [0,0,0,2],
+            [2,1,1,1],
+            [1,2,1,1],
+            [1,1,2,1],
+            [1,1,1,2],
         ]
         # generate single simple matrix for debugging purposes
         if sync:
-            better_matrix = synchronous.Matrix(inp)
+            processor = synchronous.Matrix(inp)
         else:
-            better_matrix = multiprocessed.Matrix(inp)
+            processor = multiprocessed.Matrix(inp)
         print("C | Initial matrix")
-        better_matrix.print()
+        processor.print(processor.matrix)
         
-        better_matrix.inverse()
+        processor.inverse(floats=False)
         print("\nC | Inversed matrix")
-        better_matrix.print()
+        processor.print(processor.matrix)
+
+if __name__ == "__main__":
+    # handy shortcut
+    do_the_thing(sync=True,
+                 write_to_file=False,
+                 debug_mode=True)

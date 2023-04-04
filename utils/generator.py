@@ -1,7 +1,8 @@
 from typing import List
-
 import pickle
 import numpy as np
+
+from utils.consts import *
 
 def generate_regular_matrices(dim:int, amount:int) -> List[List[float]]:
     """Generates square matrixes with float values
@@ -26,6 +27,15 @@ def generate_regular_matrices(dim:int, amount:int) -> List[List[float]]:
 # generate initial data
 if __name__ == "__main__":
     creation_data = [
+        [100, 30],
+        [200, 30],
+        [300, 30],
+        [400, 30],
+        [500, 30],
+        [600, 30],
+        [700, 30],
+        [800, 30],
+        [900, 30],
         [1000, 30],
     ]
     
@@ -33,6 +43,6 @@ if __name__ == "__main__":
         dim = params[0]
         count = params[1]
         matrices = generate_regular_matrices(*params)
-        with open(f"matrices/matrices d-{dim} c-{count}", "wb") as file:
+        with open(f"{MATRICES_DIR}/matrices d-{dim} c-{count}", "wb") as file:
             pickle.dump(matrices, file)
             print(f"Generated {count} matrices with dim {dim}")

@@ -14,7 +14,7 @@ class Result:
     def __lt__(self, other):
          return self.dimentions < other.dimentions
 
-def write_results(results:List[Result], type:str) -> None:
+def write_results(results:List[Result], sync:bool) -> None:
     """Writes results to excel file located in utils.consts.RESULTS_FILE
 
     Args:
@@ -28,6 +28,7 @@ def write_results(results:List[Result], type:str) -> None:
     
     # test sheet
     current_time = time.strftime("%H-%M", time.localtime())
+    type = "synchronous" if sync else "multiprocessed"
     ts_name = f"{current_time} {type}"
     ts =  wb.create_sheet(ts_name)
     # main sheet
@@ -41,7 +42,7 @@ def write_results(results:List[Result], type:str) -> None:
     ts["B1"] = "count"
     ts["C1"] = "time, sec"
     ts["D1"] = "time, min"
-    ts["E1"] = "avg matrix/sec"
+    ts["E1"] = "avg matrix/min"
     # additional cells
     ts["G1"] = "total time spent, min"
     ts["G2"] = f"=SUM(C2:C{len(results)+1})/60"
@@ -58,7 +59,7 @@ def write_results(results:List[Result], type:str) -> None:
         ts["B"+ts_row] = result.count
         ts["C"+ts_row] = result.time
         ts["D"+ts_row] = round(result.time/60, 2)
-        ts["E"+ts_row] = f"=B{ts_row}/C{ts_row}"
+        ts["E"+ts_row] = f"=60*B{ts_row}/C{ts_row}"
         
         # create pointer to the result on main sheet
         ms[ms_data_col + ms_row] = f"='{ts_name}'!C{ts_row}"
@@ -66,7 +67,7 @@ def write_results(results:List[Result], type:str) -> None:
         ms_data_col = chr(ord(ms_data_col) + 1)
 
     wb.save(RESULTS_FILEPATH)
-    if type == "consecutive":
-        print("C | Succsessfully written reults to the file")
+    if sync == True:
+        print("S | Succsessfully written reults to the file")
     else:
-        print("P | Succsessfully written reults to the file")
+        print("M | Succsessfully written reults to the file")

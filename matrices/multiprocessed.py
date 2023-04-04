@@ -64,4 +64,6 @@ class Matrix:
                     # for each element in column k
                     for k in range(aug_n):
                         aug_mat[j][k] += ratio * aug_mat[i][k]
+            print(f"\n{i = }")
+            self.print()
         self.remove_identity_matrix()
