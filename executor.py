@@ -64,4 +64,4 @@ if __name__ == "__main__":
     # handy shortcut
     do_the_thing(sync=False,
                  write_to_file=False,
-                 debug_mode=True)
+                 debug_mode=False)

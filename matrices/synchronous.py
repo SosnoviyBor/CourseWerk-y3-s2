@@ -1,6 +1,5 @@
 from fractions import Fraction
 from typing import List
-import time
 
 class Matrix:
     def __init__(self, matrix:List[List[int|float]]) -> None:
@@ -29,9 +28,10 @@ class Matrix:
 
     # invert the matrix
     def inverse(self, is_floats:bool) -> List[List[int|float]]:
+        # 13.0s per d-500 matrix
+        # why the fuck are you so fast????
         aug_matrix = self.create_identity_matrix()
 
-        # start = time.time()
         # Replace a row by the sum of itself and a
         for i in range(self.order):
             for j in range(self.order):
@@ -54,5 +54,4 @@ class Matrix:
                     self.matrix[i][j] = Fraction(self.matrix[i][j], ratio)
                     aug_matrix[i][j] = Fraction(aug_matrix[i][j], ratio)
         
-        # print(f"{time.time() - start}s elapsed")
         return aug_matrix
