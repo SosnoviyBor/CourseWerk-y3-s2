@@ -38,7 +38,6 @@ class Matrix:
                            suffix="Complete",
                            length=50)
 
-    # invert the matrix
     def inverse(self, is_floats:bool=True) -> List[List[int|float]]:
         """Inverse the inputed matrix
 
@@ -115,7 +114,6 @@ class Matrix:
         row = 0
         criteria = self.size
         while row < criteria:
-            # print(f"{main_row = } {row = }")
             del mini_matrix[row][main_col]
             if row == main_row:
                 del mini_matrix[row]
@@ -138,8 +136,6 @@ class Matrix:
                 # column wrap
                 if col >= size:
                     col -= size
-                
-                # print(f"{row = } {col = }")
                 
                 local_det *= mini_matrix[row][col]
                 

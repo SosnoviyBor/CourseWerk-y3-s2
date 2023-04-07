@@ -17,6 +17,7 @@ def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
         results = []
         # iterate over files in directory
         for filename in os.listdir(MATRICES_DIR):
+            # TODO sort this thing
             filepath = os.path.join(MATRICES_DIR, filename)
             with open(filepath, "rb") as file:
                 # matrices list is loaded!

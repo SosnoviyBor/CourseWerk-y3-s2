@@ -2,7 +2,6 @@ from fractions import Fraction
 from typing import List, Any
 from copy import deepcopy
 import multiprocessing as mp
-import time
 
 from utils.progress_bar import print_progress_bar
 
@@ -30,15 +29,16 @@ class Matrix:
                 print(val, end=" ")
             print('')
 
-    def pb_shortcut(self, pb_current_iter):
+    def pb_shortcut(self, pb_current_iter:int):
         """Simple shortcut for displaying the progress bar"""
+        # and no, i am not bothered enough to fix its stutter here
+        # i want to have a life too, you know
         print_progress_bar(iteration=pb_current_iter,
                            total=self.pb_total_iters,
-                           prefix=f"Sync | Progress on d-{self.size}",
+                           prefix=f"Mult | Progress on d-{self.size}",
                            suffix="Complete",
                            length=50)
 
-    # invert the matrix
     def inverse(self, is_floats:bool) -> List[List[int|float]]:
         """Inverse the inputed matrix
 
@@ -71,6 +71,7 @@ class Matrix:
                 args.append((self.inp_matrix, i, j, pb_current_iter, minor_matrix_data))
         pool2.map(self.minor, args)
 
+        # prepare empty minor matrix for next step
         minor_matrix = [[None for i in range(self.size)] for j in range(self.size)]
 
         # parse processes' results
@@ -82,7 +83,7 @@ class Matrix:
             true_row = data[1]
             true_col = data[2]
             minor_matrix[true_row][true_col] = val
-        
+
         pool1.close()
         pool1.join()
 
@@ -97,9 +98,13 @@ class Matrix:
                     adjugate_matrix[row][col] = adjugate_matrix[row][col] / det
                 else:
                     adjugate_matrix[row][col] = Fraction(adjugate_matrix[row][col], det)
+        
+        # since progressbars like to screw up in multithreading
+        # for some completely inknown reason...
+        print("")
         return adjugate_matrix
 
-    def matrix_determinant(self, pool, pb_current_iter) -> int|float:
+    def matrix_determinant(self, pool:mp.Pool, pb_current_iter:int) -> int|float:
         """Calculate matrix determinant
 
         Returns:
@@ -123,7 +128,7 @@ class Matrix:
         
         return det
 
-    def minor(self, args) -> int|float:
+    def minor(self, args:tuple) -> int|float:
         """Calculate minor of given coordinates
 
         Args:
@@ -164,8 +169,6 @@ class Matrix:
                 # column wrap
                 if col >= size:
                     col -= size
-                
-                # print(f"{row = } {col = }")
                 
                 local_det *= mini_matrix[row][col]
                 

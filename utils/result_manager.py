@@ -2,7 +2,7 @@ import time
 import openpyxl as excel
 from typing import List
 
-from utils.consts import *
+from utils.consts import RESULTS_FILEPATH
 
 class Result:
     """Class for temporarily saving results data"""
@@ -67,7 +67,8 @@ def write_results(results:List[Result], sync:bool) -> None:
         ms_data_col = chr(ord(ms_data_col) + 1)
 
     wb.save(RESULTS_FILEPATH)
-    if sync == True:
-        print("S | Succsessfully written reults to the file")
+    if sync:
+        mode = "Sync"
     else:
-        print("M | Succsessfully written reults to the file")
+        mode = "Mult"
+    print(f"{mode} | Succsessfully written reults to the file")
