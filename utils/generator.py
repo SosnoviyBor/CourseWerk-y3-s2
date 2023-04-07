@@ -2,7 +2,7 @@ from typing import List
 import pickle
 import numpy as np
 
-from consts import *
+from consts import MATRICES_DIR
 
 def generate_regular_matrices(dim:int, amount:int) -> List[List[float]]:
     """Generates square matrixes with float values
@@ -27,15 +27,11 @@ def generate_regular_matrices(dim:int, amount:int) -> List[List[float]]:
 # generate initial data
 if __name__ == "__main__":
     creation_data = [
-        # [100, 1],
-        # [200, 1],
-        # [300, 1],
-        # [400, 1],
-        [500, 1],
-        [750, 1],
-        [1000, 1],
-        [1250, 1],
-        [1500, 1],
+        [25, 1],
+        [50, 1],
+        [100, 1],
+        [200, 1],
+        [300, 1],
     ]
     
     for params in creation_data:

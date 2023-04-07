@@ -2,18 +2,18 @@ import executor
 
 if __name__ == "__main__":
     
-    print("--+-----------------------------------------")
+    # print("-----+-------------------------------------------------------")
 
-    executor.do_the_thing(sync=True,
-                          write_to_file=False,
-                          debug_mode=False)
-    print("S | Operations are done!")
+    # executor.do_the_thing(sync=True,
+    #                       write_to_file=True,
+    #                       debug_mode=False)
+    # print("Sync | Operations are done!")
 
-    print("--+-----------------------------------------")
+    print("-----+-------------------------------------------------------")
 
     executor.do_the_thing(sync=False,
-                          write_to_file=False,
+                          write_to_file=True,
                           debug_mode=False)
-    print("M | Operations are done!")
+    print("Mult | Operations are done!")
     
-    print("--+-----------------------------------------")
+    print("-----+-------------------------------------------------------")

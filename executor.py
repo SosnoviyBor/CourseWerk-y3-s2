@@ -2,11 +2,17 @@ import os
 import time
 import pickle
 
-from utils.consts import *
-from utils.result_manager import *
-from matrices import *
+from utils.consts import MATRICES_DIR
+from utils.result_manager import Result, write_results
+import algorithms
 
 def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
+    # message thingy
+    if sync:
+        mode = "Sync"
+    else:
+        mode = "Mult"
+
     if not debug_mode:
         results = []
         # iterate over files in directory
@@ -17,14 +23,12 @@ def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
                 all_matrices = pickle.load(file)
                 d = len(all_matrices[0])    # matrices dimentions
                 c = len(all_matrices)       # matrices count
-                mode = "S" if sync else "M"
                 
                 print(f"{mode} | Starting the inversion of d-{d} c-{c}")
                 time_start = time.perf_counter()    # in seconds
                 for matrix in all_matrices:
-                    # ~0.1s for one d-100 matrix
-                    if sync: synchronous.Matrix(matrix).inverse(is_floats=True)
-                    else: multiprocessed.Matrix(matrix).inverse(is_floats=True)
+                    if sync: algorithms.synchronous.Matrix(matrix).inverse(is_floats=True)
+                    else: algorithms.multiprocessed.Matrix(matrix).inverse(is_floats=True)
                 time_elapsed = time.perf_counter() - time_start
                 
                 results.append(Result(d,c,time_elapsed))
@@ -40,21 +44,14 @@ def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
             [1,1,2,1],
             [1,1,1,2],
         ]
-        # inp = [
-        #     [1,1,3],
-        #     [1,2,2],
-        #     [2,1,5],
-        # ]
         # generate single simple matrix for debugging purposes
         if sync:
-            processor = synchronous.Matrix(inp)
-            mode = "S"
+            processor = algorithms.synchronous.Matrix(inp)
         else:
-            processor = multiprocessed.Matrix(inp)
-            mode = "M"
+            processor = algorithms.multiprocessed.Matrix(inp)
 
         print(f"{mode} | Initial matrix")
-        processor.print(processor.input_matrix)
+        processor.print(processor.inp_matrix)
         
         result = processor.inverse(is_floats=True)
         print(f"\n{mode} | Inversed matrix")
@@ -64,4 +61,4 @@ if __name__ == "__main__":
     # handy shortcut
     do_the_thing(sync=False,
                  write_to_file=False,
-                 debug_mode=False)
+                 debug_mode=True)
