@@ -59,6 +59,6 @@ def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
 
 if __name__ == "__main__":
     # handy shortcut
-    do_the_thing(sync=False,
+    do_the_thing(sync=True,
                  write_to_file=False,
                  debug_mode=True)

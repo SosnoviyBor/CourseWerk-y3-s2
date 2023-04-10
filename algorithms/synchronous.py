@@ -93,7 +93,6 @@ class Matrix:
         for row in range(self.size):
             minor = self.minor(self.inp_matrix, row, col)
             det += minor * self.inp_matrix[row][col]
-            print(minor, self.inp_matrix[row][col], det)
             
         return det
 

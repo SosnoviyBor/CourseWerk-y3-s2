@@ -147,7 +147,6 @@ class Matrix:
         row = 0
         criteria = self.size
         while row < criteria:
-            # print(f"{main_row = } {row = }")
             del mini_matrix[row][main_col]
             if row == main_row:
                 del mini_matrix[row]
