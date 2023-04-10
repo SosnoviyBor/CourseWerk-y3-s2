@@ -91,9 +91,9 @@ class Matrix:
         det = 0
         col = 0
         for row in range(self.size):
-            coef = (-1) ** (row+col)
             minor = self.minor(self.inp_matrix, row, col)
-            det += coef * minor * self.inp_matrix[row][col]
+            det += minor * self.inp_matrix[row][col]
+            print(minor, self.inp_matrix[row][col], det)
             
         return det
 
@@ -159,6 +159,8 @@ class Matrix:
                 row += 1
                 col -= 1
             det -= local_det
+        
+        det *= (-1) ** (main_row + main_col)
         
         self.pb_shortcut()
         

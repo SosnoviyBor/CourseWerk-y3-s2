@@ -101,7 +101,7 @@ class Matrix:
         
         # since progressbars like to screw up in multithreading
         # for some completely inknown reason...
-        print("")
+        self.pb_shortcut(self.pb_total_iters)
         return adjugate_matrix
 
     def matrix_determinant(self, pool:mp.Pool, pb_current_iter:int) -> int|float:
@@ -121,7 +121,8 @@ class Matrix:
         
         det = 0
         for data in results:
-            det += ((-1) ** (row+col)) * data[0] * self.inp_matrix[row][col]
+            minor, row, col = data
+            det += minor * self.inp_matrix[row][col]
         
         if det == 0:
             raise Exception("Matrix' determinant = 0. This matrix does not have inverse variant")
@@ -192,6 +193,8 @@ class Matrix:
                 row += 1
                 col -= 1
             det -= local_det
+        
+        det *= (-1) ** (main_row + main_col)
         
         self.pb_shortcut(pb_current_iter)
         

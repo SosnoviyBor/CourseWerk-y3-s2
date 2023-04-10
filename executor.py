@@ -17,7 +17,6 @@ def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
         results = []
         # iterate over files in directory
         for filename in os.listdir(MATRICES_DIR):
-            # TODO sort this thing
             filepath = os.path.join(MATRICES_DIR, filename)
             with open(filepath, "rb") as file:
                 # matrices list is loaded!
@@ -54,8 +53,8 @@ def do_the_thing(sync:bool, write_to_file:bool, debug_mode:bool) -> None:
         print(f"{mode} | Initial matrix")
         processor.print(processor.inp_matrix)
         
-        result = processor.inverse(is_floats=True)
-        print(f"\n{mode} | Inversed matrix")
+        result = processor.inverse(is_floats=False)
+        print(f"{mode} | Inversed matrix")
         processor.print(result)
 
 if __name__ == "__main__":
