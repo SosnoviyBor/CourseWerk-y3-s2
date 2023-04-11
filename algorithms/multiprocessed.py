@@ -72,7 +72,7 @@ class Matrix:
         pool2.map(self.minor, args)
 
         # prepare empty minor matrix for next step
-        minor_matrix = [[None for i in range(self.size)] for j in range(self.size)]
+        minor_matrix = [[None for _ in range(self.size)] for _ in range(self.size)]
 
         # parse processes' results
         pool2.close()
@@ -84,11 +84,11 @@ class Matrix:
             true_col = data[2]
             minor_matrix[true_row][true_col] = val
 
-        pool1.close()
-        pool1.join()
-
         # transpose minor matrix
         adjugate_matrix = self.transpose(minor_matrix)
+
+        pool1.close()
+        pool1.join()
         
         # divide adjugate matrix
         # left to right, top to bottom
