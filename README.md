@@ -10,7 +10,7 @@
 Можна переглянути у файлі results.xlsx
 
 # Невдалі спроби
-![dang, my meme died again](https://github.com/SosnoviyBor/CourseWerk-y3-s2/blob/master/literlly_me.jpg?raw=true)<br>
+![dang, my meme died again](https://github.com/SosnoviyBor/CourseWerk-y3-s2/blob/master/literally_me.jpg?raw=true)<br>
 Знаходяться у папці [./algorithms/failures/](https://github.com/SosnoviyBor/CourseWerk-y3-s2/tree/master/algorithms/failures)<br>
 Я би навіть не подумав їх зберігати, якби не витратив на них 3 дні від світанку до сумерків. Нехай будуть тут в знак ганьби
 ### [Метод Гауса](https://uk.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%93%D0%B0%D1%83%D1%81%D0%B0)
