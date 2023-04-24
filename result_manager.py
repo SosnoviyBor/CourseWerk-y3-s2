@@ -31,10 +31,6 @@ def write_results(results:List[Result], sync:bool) -> None:
     type = "synchronous" if sync else "multiprocessed"
     ts_name = f"{current_time} {type}"
     ts =  wb.create_sheet(ts_name)
-    # main sheet
-    ms = wb.get_sheet_by_name("Main")
-    sheet_count = len(wb.get_sheet_names())
-    ms_row = str(sheet_count + 1)
     
     # init cells
     # column names
@@ -46,11 +42,8 @@ def write_results(results:List[Result], sync:bool) -> None:
     # additional cells
     ts["G1"] = "total time spent, min"
     ts["G2"] = f"=SUM(C2:C{len(results)+1})/60"
-    # main sheet row name
-    ms[f"A{ms_row}"] = ts_name
     
     # iterate results
-    ms_data_col = "B"
     for i in range(len(results)):
         result = results[i]
         ts_row = str(i+2)
@@ -60,11 +53,6 @@ def write_results(results:List[Result], sync:bool) -> None:
         ts["C"+ts_row] = result.time
         ts["D"+ts_row] = round(result.time/60, 2)
         ts["E"+ts_row] = f"=60*B{ts_row}/C{ts_row}"
-        
-        # create pointer to the result on main sheet
-        ms[ms_data_col + ms_row] = f"='{ts_name}'!C{ts_row}"
-        # increment the column letter
-        ms_data_col = chr(ord(ms_data_col) + 1)
 
     wb.save(RESULTS_FILEPATH)
     if sync:
