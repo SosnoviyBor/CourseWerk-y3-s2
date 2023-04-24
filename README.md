@@ -4,7 +4,7 @@
 <b>Задача</b>: Розпаралелити будь-який алгоритм пошуку оберненої матриці та пришвидшити його як мінімум на 20%. Модифікації дозволені
 
 # Набори даних
-Створені за допомогою бібліотеки [numpy](https://numpy.org/) та збережені за допомогою бібліотеки [pickle](https://docs.python.org/3/library/pickle.html) та находяться у папці [/test_data/benchmark](https://github.com/SosnoviyBor/CourseWerk-y3-s2/tree/master/test_data/benchmark). У назві кожного файлу вказано розмір матриці (d) та їх кількість (с)
+Створені за допомогою бібліотеки [numpy](https://numpy.org/) та збережені за допомогою бібліотеки [pickle](https://docs.python.org/3/library/pickle.html). Знаходяться у папці [/test_data/benchmark](https://github.com/SosnoviyBor/CourseWerk-y3-s2/tree/master/test_data/benchmark). У назві кожного файлу вказано розмір матриці (d) та їх кількість (с)
 
 # Результати
 Можна переглянути у файлі results.xlsx
